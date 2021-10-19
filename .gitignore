@@ -1,3 +1,7 @@
 logs/ 
 main.logs
 *.logs
+
+// i will add bin directory later 
+
+bin/
