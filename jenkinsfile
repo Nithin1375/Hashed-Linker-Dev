@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    stages {
+        stage("pulling the Dockerfile") {
+            steps {
+                git branch: 'Docker', url: 'https://github.com/Dhanush-bl/HU_Training.git'
+            }
+        }
+        stage("Building the image") {
+            steps {
+                bat 'docker build -f "Python Hello World/Dockerfile" -t simple_flask .'
+                bat 'docker --tag simple_flask 0072000\\auto_push:assignment_1'
+            }
+        }
+        stage("Running the container") {
+            steps {
+                bat 'docker run -d --rm --name test 0072000\\auto_push:assignment_1'
+            }
+        }
+        stage("Removing the container"){
+            steps {
+                bat 'docker stop test'
+                bat 'docker image rm 0072000\\auto_push:assignment_1 simple_flask '
+            }
+        }
+    }
+}
